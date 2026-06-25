@@ -18,6 +18,7 @@
  */
 
 using Lucene.Net.Replicator;
+using Lucene.Net.Replicator.Http;
 using LuceneDirectory = Lucene.Net.Store.Directory;
 
 namespace Lucene.Net.Extensions.Replicator.Client.Options;
@@ -65,4 +66,14 @@ public class ReplicationClientOptions
     /// </summary>
     public Func<LuceneDirectory, IReplicationHandler> ReplicationHandlerFactory { get; set; }
         = dir => new IndexReplicationHandler(dir, null);
+
+    /// <summary>
+    /// Optional factory for creating the <see cref="IAsyncReplicator"/> used to communicate
+    /// with the replication server, given the shared <see cref="HttpClient"/> and
+    /// <see cref="ServerUrl"/>. Override this to point at a different transport than
+    /// <see cref="HttpReplicator"/>, or to substitute a fake for testing.
+    /// Defaults to <see cref="HttpReplicator"/> against <see cref="ServerUrl"/>.
+    /// </summary>
+    public Func<HttpClient, string, IAsyncReplicator> ReplicatorFactory { get; set; }
+        = (httpClient, serverUrl) => new HttpReplicator(serverUrl, httpClient);
 }

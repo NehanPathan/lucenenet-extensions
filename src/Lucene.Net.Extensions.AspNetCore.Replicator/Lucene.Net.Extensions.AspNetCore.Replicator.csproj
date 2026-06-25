@@ -23,9 +23,11 @@ under the License.
   <ItemGroup>
     <ProjectReference
       Include="..\Lucene.Net.Extensions.DependencyInjection\Lucene.Net.Extensions.DependencyInjection.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Lucene.Net.Replicator" Version="$(LuceneNetVersion)" />
+    <!-- Local Lucene.NET feature branch, kept in sync with Lucene.Net.Extensions.Replicator.Client
+         so server (IReplicator) and async client (IAsyncReplicator) share one assembly.
+         NOTE: build this project directly, not via Lucene.Net.Extensions.sln. See Lucene.Net.Extensions.Replicator.Client.csproj. -->
+    <ProjectReference
+      Include="..\..\..\lucenenet\src\Lucene.Net.Replicator\Lucene.Net.Replicator.csproj" />
   </ItemGroup>
   <ItemGroup>
     <!-- Pulls in Microsoft.AspNetCore.Routing, Http, etc. from the shared framework -->

@@ -27,7 +27,11 @@ under the License.
       Include="..\Lucene.Net.Extensions.AspNetCore.Replicator\Lucene.Net.Extensions.AspNetCore.Replicator.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Lucene.Net.Replicator" Version="$(LuceneNetVersion)" />
+    <!-- Local Lucene.NET feature branch, kept in sync with Lucene.Net.Extensions.Replicator.Client
+         so server (IReplicator) and async client (IAsyncReplicator) share one assembly.
+         NOTE: build this project directly, not via Lucene.Net.Extensions.sln. See Lucene.Net.Extensions.Replicator.Client.csproj. -->
+    <ProjectReference
+      Include="..\..\..\lucenenet\src\Lucene.Net.Replicator\Lucene.Net.Replicator.csproj" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="$(MicrosoftExtensionsOptionsVersion)" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsHostingVersion)" />
   </ItemGroup>

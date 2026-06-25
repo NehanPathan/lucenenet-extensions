@@ -43,4 +43,19 @@ public static class ServiceCollectionExtensions
         services.AddHostedService<ReplicationClientService>();
         return services;
     }
+
+    /// <summary>
+    /// Registers a Lucene.NET replication client as a hosted background service, using
+    /// the async <see cref="Lucene.Net.Replicator.IAsyncReplicator"/> API rather than the
+    /// synchronous <see cref="Lucene.Net.Replicator.IReplicator"/> API.
+    /// </summary>
+    /// <param name="services">The service collection to add the client to.</param>
+    /// <param name="configureOptions">An action to configure the <see cref="ReplicationClientOptions"/>.</param>
+    /// <returns>The updated <see cref="IServiceCollection"/>.</returns>
+    public static IServiceCollection AddLuceneAsyncReplicationClient(this IServiceCollection services, Action<ReplicationClientOptions> configureOptions)
+    {
+        services.Configure(configureOptions);
+        services.AddHostedService<AsyncReplicationClientService>();
+        return services;
+    }
 }

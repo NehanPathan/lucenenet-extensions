@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    NOTE: build/run this project directly (e.g. `dotnet run` from this directory), not via
+    Lucene.Net.Extensions.sln. It is intentionally not added to that solution. Combining a
+    cross-repo ProjectReference into lucenenet with a .sln-level build breaks lucenenet's own
+    internal "$(SolutionDir).build/nuget.props" import (SolutionDir gets overridden by the
+    referencing solution). See the same note in Lucene.Net.Extensions.Replicator.Client.csproj.
+  -->
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Lucene.Net.Extensions.Replicator.Client\Lucene.Net.Extensions.Replicator.Client.csproj" />
+    <ProjectReference Include="..\..\src\Lucene.Net.Extensions.SelfHost.Replicator\Lucene.Net.Extensions.SelfHost.Replicator.csproj" />
+    <!-- For StandardAnalyzer, used only to build the publisher's IndexWriterConfig. -->
+    <ProjectReference Include="..\..\..\lucenenet\src\Lucene.Net.Analysis.Common\Lucene.Net.Analysis.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsHostingVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsHttpVersion)" />
+  </ItemGroup>
+
+</Project>

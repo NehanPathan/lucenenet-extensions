@@ -21,9 +21,9 @@ under the License.
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <!-- Core Lucene.NET Replicator package -->
-    <PackageReference Include="Lucene.Net" Version="$(LuceneNetVersion)" />
-    <PackageReference Include="Lucene.Net.Replicator" Version="$(LuceneNetVersion)" />
+    <!-- Local Lucene.NET feature branch (provides IAsyncReplicator); transitively brings in Lucene.Net.csproj and Lucene.Net.Facet.csproj.
+         NOTE: build this project directly (dotnet build/run on this .csproj), not via Lucene.Net.Extensions.sln. -->
+    <ProjectReference Include="..\..\..\lucenenet\src\Lucene.Net.Replicator\Lucene.Net.Replicator.csproj" />
 
     <!-- Microsoft.Extensions packages -->
     <PackageReference Include="Microsoft.Extensions.Hosting"
